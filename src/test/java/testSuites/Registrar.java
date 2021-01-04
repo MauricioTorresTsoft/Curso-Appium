@@ -5,7 +5,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import reports.Report;
-import testClases.Test_Carrusel;
+import testClases.Test_Crear_Producto;
 
 import static conexion.DriverContext.setUp;
 
@@ -26,10 +26,10 @@ public class Registrar {
 
     }
 
-    @Test
-    public void Test1() throws InterruptedException {
-        Test_Carrusel test = new Test_Carrusel();
+    @Test(description = "Se agrega un nuevo producto (nombre y precio), luego se verifica su creación en un listado de productos")
+    public void Test_Case1() throws InterruptedException {
+        Test_Crear_Producto test = new Test_Crear_Producto();
         test.validarFlujoCarrusel();
-        test.crearProducto("Arroz2",1000.1322);
+        test.crearProducto("Arroz",1000.1322);
     }
 }

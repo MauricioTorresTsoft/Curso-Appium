@@ -4,7 +4,7 @@ import pages.CarruselPage;
 import pages.RegistroPage;
 import pages.RegistroProductoPage;
 
-public class Test_Carrusel {
+public class Test_Crear_Producto{
     CarruselPage carrusel = new CarruselPage();
     RegistroPage registroPrincipal = new RegistroPage();
     RegistroProductoPage registroProducto = new RegistroProductoPage();
@@ -18,10 +18,9 @@ public class Test_Carrusel {
         registroPrincipal.presionarBtnMas();
         registroPrincipal.presionarCrearProducto();
         registroProducto.validarPageRegistro();
-        String precioProducto= String.format("%.2f", precio);
-        registroProducto.crearProducto(nombreProducto,precioProducto);
+        registroProducto.crearProducto(nombreProducto,String.format("%.2f", precio));
         registroPrincipal.presionarPestañaProducto();
-        registroPrincipal.buscarProducto(nombreProducto,precioProducto);
+        registroPrincipal.buscarProducto(nombreProducto,String.format("%.2f", precio));
     }
 }
 

@@ -95,7 +95,7 @@ public class RegistroPage {
         for(int i=0;i<=listaNombreProducto.size();i++){
             nombreActual=listaNombreProducto.get(i).getText();
             precioActual=listaPrecioProducto.get(i).getText();
-            if(nombreActual.equals(producto))
+            if(nombreActual.equals(producto) && precioActual.equals(metodosGenericos.reemplazaComaxPunto(precio)))
             {
                 System.out.println("[VALIDACIÓN] El nombre del producto a buscar es '"+producto+"' \n" +
                         "y se encontro en la posición "+i+" de la lista");
