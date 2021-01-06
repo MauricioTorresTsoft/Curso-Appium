@@ -32,6 +32,7 @@ public class RegistroDetalleCliente {
     private MobileElement btnOK;
 
     public void presionarBtnEliminar() throws InterruptedException {
+
         if(esperarObjeto(btnEliminar,3)) {
             if (btnEliminar.isDisplayed() && btnEliminar.isEnabled()) {
                 btnEliminar.click();

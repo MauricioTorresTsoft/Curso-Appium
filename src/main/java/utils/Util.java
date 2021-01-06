@@ -5,6 +5,8 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
@@ -17,13 +19,13 @@ public class Util {
         try {
             System.out.println("buscando elemento: " + elemento + ", esperamos " + segundos + " segundos, hasta que aparezca");
             //No funciona, se reemplazará
-            //WebDriverWait wait= new WebDriverWait(DriverContext.getDriver(),segundos);
-            //wait.until(ExpectedConditions.visibilityOf(elemento));
-            Thread.sleep(segundos * 1000);
-            //if () {
-                System.out.println("se encontro elemento (" + elemento + ")");
-                return true;
-            //}
+            WebDriverWait wait= new WebDriverWait(DriverContext.getDriver(),segundos);
+            wait.until(ExpectedConditions.visibilityOf(elemento));
+            //Thread.sleep(segundos * 1000);
+
+            System.out.println("se encontro elemento (" + elemento + ")");
+            return true;
+
         } catch (Exception e) {
             System.out.println("no se encontro el elemento");
             return false;

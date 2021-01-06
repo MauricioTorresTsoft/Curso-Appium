@@ -8,16 +8,22 @@ import reports.Report;
 import testClases.Test_Borrar_Cliente;
 import testClases.Test_Crear_Producto;
 
+import java.io.File;
+
 import static conexion.DriverContext.setUp;
 
 public class Registrar {
+
+    public static String pathDirectorio = new File("").getAbsolutePath();
+    public static String app = new String( pathDirectorio.concat( "\\src\\app_apk\\registroDeUsuarios.apk" ) );
 
     @BeforeMethod
     public void inicioSession(){
         setUp("4200b529972d6449",
                 "Android",
-                "f:\\Documents\\registroDeUsuarios.apk",
+                app,
                 "4200b529972d6449",false);
+        //"f:\\Documents\\registroDeUsuarios.apk"
 
     }
 
@@ -33,6 +39,7 @@ public class Registrar {
         Test_Crear_Producto test = new Test_Crear_Producto();
         test.validarFlujoCarrusel();
         test.crearProducto("Arroz",1000.1322);
+        Report.finalAssert();
     }
 
     @Test(priority = 2, description = "se elimina a un cliente predefinido ," +
@@ -41,6 +48,7 @@ public class Registrar {
         Test_Borrar_Cliente test = new Test_Borrar_Cliente();
         test.validarFlujoCarrusel();
         //SE DEBE ESPECIFICAR EL NOMBRE PREVIAMENTE CREADO EN LA APP
-        test.borrarCliente("super");
+        test.borrarCliente("Emilia");
+        Report.finalAssert();
     }
 }
