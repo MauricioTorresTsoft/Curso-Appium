@@ -6,6 +6,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.qameta.allure.model.Status;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 import utils.Util;
 
@@ -43,6 +44,12 @@ public class RegistroPage {
 
     @AndroidFindBy(xpath = "//*[@resource-id='com.rodrigo.registro:id/precio_producto']")
     private List<MobileElement> listaPrecioProducto;
+
+    @AndroidFindBy(xpath = "//*[@resource-id='com.rodrigo.registro:id/nombre_cliente']")
+    private List<MobileElement> listaClientesRegistrado;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'No hay clientes, registre sus clientes y productos antes de realizar acciones')]")
+    private MobileElement lblSinClientes;
 
     public void presionarPestañaProducto() throws InterruptedException {
         if(metodosGenericos.esperarObjeto(pestañaProductos,3)){
@@ -112,4 +119,49 @@ public class RegistroPage {
         }
     }
 
+    public void buscarClienteEliminado(String clientePredefinido){
+        String nombreActual;
+        boolean coincide=false;
+        if(listaClientesRegistrado.size()>0) {
+            for(int i=0;i<listaClientesRegistrado.size();i++){
+                nombreActual=listaClientesRegistrado.get(i).getText();
+                if(nombreActual.equals(clientePredefinido) && listaClientesRegistrado.get(i).isDisplayed()
+                        && listaClientesRegistrado.get(i).isEnabled())
+                {
+                    coincide=true;
+                }
+            }
+        }
+        else{
+            coincide=false;
+        }
+
+        if (!coincide) {
+            System.out.println("[Verificación] El cliente no se encuentra en la lista, se ha eliminado correctamente");
+            addStep("Se eliminó el cliente correctamente", true, Status.PASSED, false);
+        } else {
+             addStep("El cliente se visualiza en la lista de Clientes, no se elimino correctamente", false, Status.FAILED, true);
+        }
+    }
+    public void presionarClientePredefinido(String clientePredefinido) throws InterruptedException {
+        MobileElement cliente = (MobileElement) driver.findElement(By.xpath("//*[contains(@text,'"+clientePredefinido+"')]"));
+        if(metodosGenericos.esperarObjeto(cliente,3)){
+            if(cliente.isDisplayed() && cliente.isEnabled()){
+                cliente.click();
+                addStep("El cliente esta disponible para interacción",true, Status.PASSED,false);
+            }
+            else {
+                addStep("El cliente NO esta disponible para interacción",true, Status.FAILED,true);
+            }
+        }
+    }
+    public void validarSinCliente() throws InterruptedException {
+        if(metodosGenericos.esperarObjeto(lblSinClientes,3)) {
+            if (lblSinClientes.isDisplayed()) {
+                addStep("[Validación] Se valida que no hay clientes registrados, por lo tanto se elimino el cliente correctamente", true, Status.PASSED, false);
+            } else {
+                addStep("Hay registro de clientes", false, Status.FAILED, true);
+            }
+        }
+    }
 }

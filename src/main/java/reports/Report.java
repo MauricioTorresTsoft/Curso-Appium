@@ -59,5 +59,6 @@ public class Report {
 
     public static void finalAssert(){
         softAssert.assertAll();
+
     }
 }
