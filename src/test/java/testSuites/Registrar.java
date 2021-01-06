@@ -14,14 +14,14 @@ import static conexion.DriverContext.setUp;
 
 public class Registrar {
 
-    public static String pathDirectorio = new File("").getAbsolutePath();
-    public static String app = new String( pathDirectorio.concat( "\\src\\app_apk\\registroDeUsuarios.apk" ) );
+    public static String Directorio = new File("").getAbsolutePath();
+    public static String rutaAPK = new String( Directorio.concat( "\\src\\app_apk\\registroDeUsuarios.apk" ) );
 
     @BeforeMethod
     public void inicioSession(){
         setUp("4200b529972d6449",
                 "Android",
-                app,
+                rutaAPK,
                 "4200b529972d6449",false);
         //"f:\\Documents\\registroDeUsuarios.apk"
 
